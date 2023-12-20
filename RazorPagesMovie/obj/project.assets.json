@@ -7998,11 +7998,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj",
+      "projectUniqueName": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\My_Razor_Diplom\\RazorPagesMovie\\RazorPagesMovie.csproj",
       "projectName": "RazorPagesMovie",
-      "projectPath": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\RazorPagesMovie.csproj",
+      "projectPath": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\My_Razor_Diplom\\RazorPagesMovie\\RazorPagesMovie.csproj",
       "packagesPath": "C:\\Users\\ap_lo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\RazorPagesMovie\\obj\\",
+      "outputPath": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\My_Razor_Diplom\\RazorPagesMovie\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ap_lo\\AppData\\Roaming\\NuGet\\NuGet.Config",
