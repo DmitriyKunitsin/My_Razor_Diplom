@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPagesMovie.Data;
 using RazorPagesMovie.Models;
 
-namespace RazorPagesMovie.Pages.Movies
+namespace RazorPagesMovie.Pages.Students
 {
     public class CreateModel : PageModel
     {
-        private readonly RazorPagesMovie.Data.RazorPagesMovieContext _context;
+        private readonly RazorPagesMovie.Data.SchoolContext _context;
 
-        public CreateModel(RazorPagesMovie.Data.RazorPagesMovieContext context)
+        public CreateModel(RazorPagesMovie.Data.SchoolContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace RazorPagesMovie.Pages.Movies
         }
 
         [BindProperty]
-        public Movie Models { get; set; } = default!;
+        public Student Student { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -34,10 +34,10 @@ namespace RazorPagesMovie.Pages.Movies
                 return Page();
             }
 
-            _context.Models.Add(Models);
+            _context.Students.Add(Student);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Index");
+            return RedirectToPage("./Index");
         }
     }
 }

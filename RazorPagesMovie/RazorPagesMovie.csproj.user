@@ -10,6 +10,6 @@
     <WebStackScaffolding_IsPartialViewSelected>False</WebStackScaffolding_IsPartialViewSelected>
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
-    <WebStackScaffolding_DbContextTypeFullName>RazorPagesMovie.Data.RazorPagesMovieContext</WebStackScaffolding_DbContextTypeFullName>
+    <WebStackScaffolding_DbContextTypeFullName>RazorPagesMovie.Data.SchoolContext</WebStackScaffolding_DbContextTypeFullName>
   </PropertyGroup>
 </Project>

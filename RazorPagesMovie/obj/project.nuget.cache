@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Krq15v/hRIt9AMQYr/TxA4Dx42oqZGZCcS+BWUVTMTQ3PhJqR/IWxrrdPhbB4GBlKOEgaH2kABi0xX1/P7tPGg==",
+  "dgSpecHash": "UPDMV5xQejBHtKPfrHNODXKb2VITNYdPn1tILd/u0SvotwLAqaGMmKYEwYNpS+CwFJvfyZ2lbkkbwNHmmvDARA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ap_lo\\source\\repos\\RazorPagesMovie\\My_Razor_Diplom\\RazorPagesMovie\\RazorPagesMovie.csproj",
   "expectedPackageFiles": [
@@ -63,6 +63,7 @@
     "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.0\\microsoft.aspnetcore.components.quickgrid.8.0.0.nupkg.sha512",
     "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid.entityframeworkadapter\\8.0.0\\microsoft.aspnetcore.components.quickgrid.entityframeworkadapter.8.0.0.nupkg.sha512",
     "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.aspnetcore.components.web\\8.0.0\\microsoft.aspnetcore.components.web.8.0.0.nupkg.sha512",
+    "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\8.0.0\\microsoft.aspnetcore.diagnostics.entityframeworkcore.8.0.0.nupkg.sha512",
     "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.0\\microsoft.aspnetcore.metadata.8.0.0.nupkg.sha512",
     "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.24\\microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512",
     "C:\\Users\\ap_lo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
