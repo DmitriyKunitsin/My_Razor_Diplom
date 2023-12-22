@@ -33,15 +33,15 @@ namespace RazorPagesMovie.Pages.Students
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
 
-            if(pageIndex == null)
-            {
-                pageIndex = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
+            //if(pageIndex == null)
+            //{
+            //    pageIndex = 1;
+            //}
+            //else
+            //{
+            //    searchString = currentFilter;
 
-            }
+            //}
 
             IQueryable<Student> studentsIQ = from s in _context.Students
                                              select s;
