@@ -29,15 +29,19 @@ namespace RazorPagesMovie.Pages.Students
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var emtyStudent = new Student();
+
+            if (await TryUpdateModelAsync<Student>
+                (emtyStudent, 
+                "student",
+                s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate)) 
             {
-                return Page();
+                _context.Students.Add(emtyStudent);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
 
-            _context.Students.Add(Student);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }
