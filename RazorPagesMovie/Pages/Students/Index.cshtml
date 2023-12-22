@@ -12,6 +12,16 @@
         <input type="submit" value="Добавить ученика" />
     </a>
 </p>
+
+<form asp-asp-page="./Index" method="get">
+    <div class="form-action no color">
+        <p>Введите имя для поиска
+            <input type="text" name="SearchString" value="@Model.CurrentFilter"/>
+            <input type="submit" value="Поиск" class="btn btn-primary"/>
+            <a asp-page="./Index">Back to list</a>
+        </p>
+    </div></form>
+
 <table class="table">
     <thead>
         <tr>
