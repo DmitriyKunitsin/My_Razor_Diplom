@@ -28,14 +28,14 @@ namespace RazorPagesMovie.Pages.Students
                 return NotFound();
             }
 
-            var student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
+            Student = await _context.Students
+                .Include(s => s.Enrollments)//Методы Include и ThenInclude инструктируют контекст для загрузки свойства
+                .ThenInclude(e => e.Course)//навигации Student.Enrollments, а также свойства навигации Enrollment.Course
+                .AsNoTracking()//в пределах каждой регистрации
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (Student == null)
             {
                 return NotFound();
-            }
-            else
-            {
-                Student = student;
             }
             return Page();
         }
