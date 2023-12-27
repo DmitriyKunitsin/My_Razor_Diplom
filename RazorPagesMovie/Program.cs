@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ContosoUniversity.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RazorPagesMovie.Data;
 using RazorPagesMovie.Models;
@@ -38,8 +39,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     var context = services.GetRequiredService<SchoolContext>();
-    context.Database.EnsureCreated();
-    //DbInitializer.Initialize(context);
+    DbInitializer.Initialize(context);
 }
 app.UseHttpsRedirection();
 //�������������� ��� ������� HTTP �� HTTPS.
