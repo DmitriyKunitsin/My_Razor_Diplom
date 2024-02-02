@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppDiplomTST.Data;
 
@@ -11,9 +12,11 @@ using WebAppDiplomTST.Data;
 namespace WebAppDiplomTST.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240202214139_addNewClassCorseAndUserCourse")]
+    partial class addNewClassCorseAndUserCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,7 +185,7 @@ namespace WebAppDiplomTST.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("WebAppDiplomTST.Data.Course.UserCourse", b =>
@@ -289,31 +292,6 @@ namespace WebAppDiplomTST.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Question", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("TestId")
                         .HasColumnType("int");
 
@@ -325,7 +303,7 @@ namespace WebAppDiplomTST.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Test", b =>
@@ -336,16 +314,11 @@ namespace WebAppDiplomTST.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("Tests");
                 });
@@ -441,35 +414,13 @@ namespace WebAppDiplomTST.Data.Migrations
 
             modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Answer", b =>
                 {
-                    b.HasOne("WebAppDiplomTST.Data.Tests.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Question", b =>
-                {
                     b.HasOne("WebAppDiplomTST.Data.Tests.Test", "Test")
-                        .WithMany("Questions")
+                        .WithMany("Answers")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Test", b =>
-                {
-                    b.HasOne("WebAppDiplomTST.Data.Course.Course", "Course")
-                        .WithMany("Tests")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("WebAppDiplomTST.Data.Tests.UserTest", b =>
@@ -493,8 +444,6 @@ namespace WebAppDiplomTST.Data.Migrations
 
             modelBuilder.Entity("WebAppDiplomTST.Data.Course.Course", b =>
                 {
-                    b.Navigation("Tests");
-
                     b.Navigation("UserCourse");
                 });
 
@@ -507,14 +456,9 @@ namespace WebAppDiplomTST.Data.Migrations
                     b.Navigation("UserTests");
                 });
 
-            modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Question", b =>
-                {
-                    b.Navigation("Answers");
-                });
-
             modelBuilder.Entity("WebAppDiplomTST.Data.Tests.Test", b =>
                 {
-                    b.Navigation("Questions");
+                    b.Navigation("Answers");
 
                     b.Navigation("UserTest");
                 });
