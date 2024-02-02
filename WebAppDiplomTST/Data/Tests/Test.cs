@@ -8,7 +8,7 @@ namespace WebAppDiplomTST.Data.Tests
         public string Name { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
-        public string UserID { get; set; }
-        public ApplicationUser User { get; set; }
+        //public int UserID { get; set; }
+        public ICollection<UserTest> UserTest { get; set; }
     }
 }
