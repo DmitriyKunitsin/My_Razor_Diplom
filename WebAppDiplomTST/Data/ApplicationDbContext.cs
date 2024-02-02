@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebAppDiplomTST.Data.Course;
 using WebAppDiplomTST.Data.Identity;
 using WebAppDiplomTST.Data.Tests;
@@ -14,6 +15,7 @@ namespace WebAppDiplomTST.Data
         {
         }
 
+        public DbSet<Course.Course> Courses { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<UserTest> UserTests { get; set; }
@@ -61,11 +63,38 @@ namespace WebAppDiplomTST.Data
             //Свойство UserTests в классе Test представляет коллекцию связанных записей
             //из таблицы UserTest.
 
-
+            builder.Entity<Answer>().HasKey(a => a.Id);
             builder.Entity<Answer>()
-            .HasOne(a => a.Test)
+            .HasOne(a => a.Question)
             .WithMany(t => t.Answers)
-            .HasForeignKey(a => a.TestId);
+            .HasForeignKey(a => a.QuestionId);
+
+            builder.Entity<Question>().HasKey(a => a.Id);
+            builder.Entity<Question>()
+                .HasOne(q => q.Test)
+                .WithMany(t => t.Questions)
+                .HasForeignKey(q => q.TestId);
+
+            builder.Entity<Test>()
+                .HasMany(t => t.Questions)
+                .WithOne(q => q.Test)
+                .HasForeignKey(q => q.TestId);
+
+            builder.Entity<Test>()
+                .HasMany(t => t.UserTest)
+                .WithOne(ut => ut.Test)
+                .HasForeignKey(ut => ut.TestId);
+
+            builder.Entity<Test>()
+                .HasOne(t => t.Course)
+                .WithMany(c => c.Tests)
+                .HasForeignKey(t => t.CourseId);
+
+            builder.Entity<WebAppDiplomTST.Data.Course.Course>()
+                .HasMany(c => c.Tests)
+                .WithOne(t => t.Course)
+                .HasForeignKey(t => t.CourseId);
+
         }
     }
 }

@@ -7,8 +7,9 @@ namespace WebAppDiplomTST.Data.Tests
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
-        //public int UserID { get; set; }
+        public ICollection<Question> Questions { get; set; }
         public ICollection<UserTest> UserTest { get; set; }
+        public Course.Course Course { get; set; }
+        public int CourseId { get; set; }
     }
 }
