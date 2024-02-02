@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebAppDiplomTST.Data.Course;
 using WebAppDiplomTST.Data.Identity;
 using WebAppDiplomTST.Data.Tests;
 
@@ -16,10 +17,24 @@ namespace WebAppDiplomTST.Data
         public DbSet<Test> Tests { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<UserTest> UserTests { get; set; }
+        public DbSet<UserCourse> UserCourses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<UserCourse>()
+                .HasKey(uc => new {uc.UserId, uc.CourseId});
+
+            builder.Entity<UserCourse>()
+                .HasOne(uc => uc.User)
+                .WithMany(u => u.UserCourses)
+                .HasForeignKey(u => u.UserId);
+
+            builder.Entity<UserCourse>()
+                .HasOne(uc => uc.Course)
+                .WithMany(c => c.UserCourse)
+                .HasForeignKey(c => c.CourseId);
 
             builder.Entity<UserTest>()
                 .HasKey(ut => new { ut.UserId, ut.TestId });
