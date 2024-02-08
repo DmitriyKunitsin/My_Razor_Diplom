@@ -1,0 +1,75 @@
+﻿@page
+@model WebAppDiplomTST.Pages.Tests.CreateTestModel
+@{
+    ViewData["Title"] = "Создание теста";
+}
+@using Microsoft.AspNetCore.Identity
+@using WebAppDiplomTST.Data.Identity
+@using WebAppDiplomTST.Data.Tests
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@inject SignInManager<ApplicationUser> SignlnManager
+
+@if (SignlnManager.IsSignedIn(User))
+{
+    <h1>Создание вопросов</h1>
+    <form method="post" id="questionForm">
+        <div>
+            <label for="questionText">Текст вопроса:</label>
+            <input type="text" id="questionText" name="Question.Text" required>
+        </div>
+        <div id="answersContainer">
+            <div class="answer">
+                <label for="answer1">Ответ 1:</label>
+                <input type="text" id="answer1" name="Question.Answers[0].Text" required>
+                <input type="checkbox" id="correct1" name="Question.Answers[0].IsCorrect">
+                <label for="correct1">Правильный ответ</label>
+            </div>
+        </div>
+
+        <button type="button" onclick="addAnswer()">Добавить ответ</button>
+        <button type="submit">Добавить вопрос</button>
+    </form>
+
+    <script>
+        var answerIndex = 1;
+
+        function addAnswer() {
+            var answersContainer = document.getElementById("answersContainer");
+
+            var answerDiv = document.createElement("div");
+            answerDiv.classList.add("answer");
+
+            var answerLabel = document.createElement("label");
+            answerLabel.textContent = "Ответ " + (answerIndex + 1) + ":";
+
+            var answerInput = document.createElement("input");
+            answerInput.type = "text";
+            answerInput.name = "Question.Answers[" + answerIndex + "].Text";
+            answerInput.required = true;
+
+            var correctInput = document.createElement("input");
+            correctInput.type = "checkbox";
+            correctInput.name = "Question.Answers[" + answerIndex + "].IsCorrect";
+
+            var correctLabel = document.createElement("label");
+            correctLabel.textContent = "Правильный ответ";
+            correctLabel.setAttribute("for", "correct" + (answerIndex + 1));
+
+            answerDiv.appendChild(answerLabel);
+            answerDiv.appendChild(answerInput);
+            answerDiv.appendChild(correctInput);
+            answerDiv.appendChild(correctLabel);
+
+            answersContainer.appendChild(answerDiv);
+
+            answerIndex++;
+        }
+    </script>
+
+
+}
+else
+{
+    <p>У вас нет прав создавать тесты</p>
+}
