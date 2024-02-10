@@ -59,8 +59,8 @@ namespace WebAppDiplomTST.Pages.Tests
                 Title = Test.Title
             };
 
-            _context.Tests.Add(newTest);
-            await _context.SaveChangesAsync();
+            //_context.Tests.Add(newTest);
+            //await _context.SaveChangesAsync();
 
             return RedirectToPage("/Tests/AddQuestion");
         }

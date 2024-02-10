@@ -14,19 +14,19 @@
 {
         <h1>Создание теста</h1>
     <form method="post">
-        <div class="form-group">
+        <div class="form-group form-container">
             <label asp-for="Test.Name">Название теста</label>
             <input asp-for="Test.Name" class="form-control" />
             <span asp-validation-for="Test.Name" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group form-container">
             <label asp-for="Test.Title">Описание</label>
             <textarea asp-for="Test.Title" class="form-control"></textarea>
             <span asp-validation-for="Test.Title" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary" asp-page-handler="AddQuestion">Создать</button>
+        <button type="submit" class="btn btn-primary form-container" asp-page-handler="AddQuestion">Создать</button>
     </form>
 } else
 {

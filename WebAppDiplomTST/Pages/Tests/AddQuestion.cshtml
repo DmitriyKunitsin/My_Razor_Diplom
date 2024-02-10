@@ -1,5 +1,5 @@
 ﻿@page
-@model WebAppDiplomTST.Pages.Tests.CreateTestModel
+@model WebAppDiplomTST.Pages.Tests.AddQuestionModel
 @{
     ViewData["Title"] = "Создание теста";
 }
@@ -12,58 +12,73 @@
 
 @if (SignlnManager.IsSignedIn(User))
 {
-    <h1>Создание вопросов</h1>
+    <h1>Создание вопросов - Вопрос номер <span id="questionIndex">1</span></h1>
     <form method="post" id="questionForm">
-        <div>
+        <div class="form-container">
             <label for="questionText">Текст вопроса:</label>
-            <input type="text" id="questionText" name="Question.Text" required>
+            <input type="text" id="questionText" name="" required>
         </div>
-        <div id="answersContainer">
+        <div id="answersContainer" class="form-container">
             <div class="answer">
-                <label for="answer1">Ответ 1:</label>
+                <label asp-for="Question.Text">новый Ответ 1:</label>
+                <input type="text" asp-for="Question.Text" class="form-control" />
+                <span asp-validation-for="Question.Text" class="text-danger"></span>
+                <label for="answer1">старый Ответ 1:</label>
                 <input type="text" id="answer1" name="Question.Answers[0].Text" required>
                 <input type="checkbox" id="correct1" name="Question.Answers[0].IsCorrect">
                 <label for="correct1">Правильный ответ</label>
             </div>
         </div>
 
-        <button type="button" onclick="addAnswer()">Добавить ответ</button>
-        <button type="submit">Добавить вопрос</button>
+
+        <button class="btn btn-primary" type="button" onclick="addAnswer()">Добавить ответ</button>
+        <button class="btn btn-primary" type="submit" onclick="addQuestion()" asp-page-handler="AddQuest">Добавить вопрос</button>
     </form>
 
     <script>
         var answerIndex = 1;
-
+        var questionIndex = 1;
+        function addQuestion() {
+            questionIndex++
+            document.getElementById("questionIndex").textContent = questionIndex;
+        }
         function addAnswer() {
-            var answersContainer = document.getElementById("answersContainer");
+            if (answerIndex < 4) {
 
-            var answerDiv = document.createElement("div");
-            answerDiv.classList.add("answer");
+                var answersContainer = document.getElementById("answersContainer");
 
-            var answerLabel = document.createElement("label");
-            answerLabel.textContent = "Ответ " + (answerIndex + 1) + ":";
+                var answerDiv = document.createElement("div");
+                answerDiv.classList.add("answer");
 
-            var answerInput = document.createElement("input");
-            answerInput.type = "text";
-            answerInput.name = "Question.Answers[" + answerIndex + "].Text";
-            answerInput.required = true;
+                var answerLabel = document.createElement("label");
+                answerLabel.textContent = "Ответ " + (answerIndex + 1) + ":";
 
-            var correctInput = document.createElement("input");
-            correctInput.type = "checkbox";
-            correctInput.name = "Question.Answers[" + answerIndex + "].IsCorrect";
+                var answerInput = document.createElement("input");
+                answerInput.type = "text";
+                answerInput.name = "Question.Answers[" + answerIndex + "].Text";
+                answerInput.required = true;
 
-            var correctLabel = document.createElement("label");
-            correctLabel.textContent = "Правильный ответ";
-            correctLabel.setAttribute("for", "correct" + (answerIndex + 1));
+                var correctInput = document.createElement("input");
+                correctInput.type = "checkbox";
+                correctInput.name = "Question.Answers[" + answerIndex + "].IsCorrect";
 
-            answerDiv.appendChild(answerLabel);
-            answerDiv.appendChild(answerInput);
-            answerDiv.appendChild(correctInput);
-            answerDiv.appendChild(correctLabel);
+                var correctLabel = document.createElement("label");
+                correctLabel.textContent = "Правильный ответ";
+                correctLabel.setAttribute("for", "correct" + (answerIndex + 1));
 
-            answersContainer.appendChild(answerDiv);
+                answerDiv.appendChild(answerLabel);
+                answerDiv.appendChild(answerInput);
+                answerDiv.appendChild(correctInput);
+                answerDiv.appendChild(correctLabel);
 
-            answerIndex++;
+                answersContainer.appendChild(answerDiv);
+
+                answerIndex++;
+
+
+            } else {
+                alert("Максимальное количество ответов - 4");
+            }
         }
     </script>
 
