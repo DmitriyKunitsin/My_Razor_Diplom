@@ -1,0 +1,57 @@
+﻿@page
+@model WebAppDiplomTST.Pages.Tests.AllTestsModel
+@using Microsoft.AspNetCore.Identity
+@using WebAppDiplomTST.Data.Identity
+@using WebAppDiplomTST.Data.Tests
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@inject SignInManager<ApplicationUser> SignlnManager
+
+@if (SignlnManager.IsSignedIn(User))
+{
+    if (Model.ErrorMessage == null)
+    {
+
+        <form method="post">
+
+            <div>
+                <label asp-for="Test.Name">Name :</label>
+                <input asp-for="Test.Name" />
+            </div>
+
+
+            <h3>Questions:</h3>
+            @for (int i = 0; i < Model.Test.Questions.Count; i++)
+            {
+                <div>
+                    <label asp-for="Test.Questions.ElementAt(i)">Question @i</label>
+                    <input asp-for="Test.Questions.ElementAt(i).Text" />
+
+                    <h4>Answers:</h4>
+                    @for (int j = 0; j < Model.Test.Questions.ElementAt(i).Answers.Count; j++)
+                    {
+                        <div>
+                            <label asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).Text">Answer @i</label>
+                            <input asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).Text" />
+
+                            <label asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).IsCorrect">Is Correct</label>
+                            <input type="checkbox" asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).IsCorrect" />
+                        </div>
+                    }
+                </div>
+            }
+            <button type="submit">Create Test</button>
+        </form>
+    }
+    else
+    {
+        <p>@Model.ErrorMessage</p>
+        <form method="post">
+            <button type="submit" class="btn btn-primary" asp-page-handler="CreatedTest">Создать тест</button>
+        </form>
+    }
+}
+else
+{
+    <p>У вас нет прав создавать тесты</p>
+}
