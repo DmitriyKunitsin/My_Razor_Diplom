@@ -32,15 +32,32 @@
 
 
         <button class="btn btn-primary" type="button" onclick="addAnswer()">Добавить ответ</button>
-        <button class="btn btn-primary" type="submit" onclick="addQuestion()" asp-page-handler="AddQuest">Добавить вопрос</button>
+        <button class="btn btn-primary" type="submit" onclick="addQuestion(event)" asp-page-handler="AddQuest">Добавить вопрос</button>
     </form>
-
+    <form method="post" id="saveTest">
+        <button class="btn btn-primary" type="submit" onclick="saveTest(event)" asp-page-handler="saveTest">Сохранить тест</button>
+    </form>
     <script>
-        var answerIndex = 1;
-        var questionIndex = 1;
-        function addQuestion() {
-            questionIndex++
+        let answerIndex = 1;
+        let testIsNew = "testIsNew";
+        let testIsContinued = "testIsContinued";
+        let isNewTest = localStorage.getItem("isNewTest") || testIsNew;
+        let questionIndex = isNewTest === testIsContinued ? localStorage.getItem("questionIndex") : "1";
+        document.getElementById("questionIndex").textContent = questionIndex;
+
+        function addQuestion(event) {
+            event.preventDefault();
+            questionIndex++;
+            console.log('questionIndex', questionIndex);
+            localStorage.setItem("questionIndex", questionIndex);
+            localStorage.setItem("isNewTest", testIsContinued);
             document.getElementById("questionIndex").textContent = questionIndex;
+            document.getElementById("questionForm").submit();
+        }
+        function saveTest(event) {
+            event.preventDefault();
+            localStorage.setItem("isNewTest", testIsNew);
+            document.getElementById("saveTest").submit();
         }
         function addAnswer() {
             if (answerIndex < 4) {
@@ -77,12 +94,10 @@
 
 
             } else {
-                alert("Максимальное количество ответов - 4");
+                alert("Максимальное колличество ответов - 4");
             }
         }
     </script>
-
-
 }
 else
 {

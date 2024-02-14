@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebAppDiplomTST")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f611c6da0c5e7584314daa11f1f45d071671b387")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60b9884d69a6255e79552284d8aaaefdfaa3d587")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebAppDiplomTST")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebAppDiplomTST")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
