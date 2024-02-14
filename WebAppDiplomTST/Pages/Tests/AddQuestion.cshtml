@@ -39,9 +39,10 @@
     </form>
     <script>
         let answerIndex = 1;
-        let testIsNew = "testIsNew";
+        
         let testIsContinued = "testIsContinued";
         let isNewTest = localStorage.getItem("isNewTest") || testIsNew;
+        console.log(localStorage.getItem("isNewTest"));
         let questionIndex = isNewTest === testIsContinued ? localStorage.getItem("questionIndex") : "1";
         document.getElementById("questionIndex").textContent = questionIndex;
 

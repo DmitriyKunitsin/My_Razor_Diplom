@@ -26,9 +26,16 @@
             <span asp-validation-for="Test.Title" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary form-container" asp-page-handler="AddQuestion">Создать</button>
+        <button onclick="refreshConeter()" type="submit" class="btn btn-primary form-container" asp-page-handler="AddQuestion">Создать</button>
     </form>
 } else
 {
     <p>У вас нет прав создавать тесты</p>
 }
+<script>
+    function refreshConeter() {
+        var testIsNew = "testIsNew";
+        localStorage.setItem("isNewTest", testIsNew);
+        console.log("Отработала функция обнуления");
+    }
+</script>
