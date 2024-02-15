@@ -15,55 +15,19 @@
         <form method="post">
             <div class="test-container">
 
-            @foreach(var test in Model.Tests)
-            {
-                
-            <div class="test-square">
-                    <label >Name : @test.Name</label>
-                    <label >Описание : @test.Title</label>
-            </div>
-            }
-            </div>
+                @foreach (var test in Model.Tests)
+                {
 
-            <style>
-                .test-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-around; /* Выравнивание по центру */
-                    padding: 20px;
+                    <div class="test-square">
+                        <p>Name : @test.Name</p>
+                        <label>Описание : @test.Title</label>
+                        <form method="post">
+                            <input type="hidden" name="testId" value="@test.Id" />
+                            <button type="submit" asp-page-handler="Details" asp-route-testId="@test.Id">Пройти тест</button>
+                        </form>
+                    </div>
                 }
-
-                .test-square {
-                    width: 200px;
-                    height: 200px;
-                    background-color: lightblue;
-                    margin: 10px;
-                    padding: 10px;
-                    border-radius: 10px;
-                    cursor: pointer;
-                }
-            </style>
-
-            <h3>Questions:</h3>
-            @* @for (int i = 0; i < Model.Test.Questions.Count; i++)
-            {
-                <div>
-                    <label asp-for="Test.Questions.ElementAt(i)">Question @i</label>
-                    <input asp-for="Test.Questions.ElementAt(i).Text" />
-
-                    <h4>Answers:</h4>
-                    @for (int j = 0; j < Model.Test.Questions.ElementAt(i).Answers.Count; j++)
-                    {
-                        <div>
-                            <label asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).Text">Answer @i</label>
-                            <input asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).Text" />
-
-                            <label asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).IsCorrect">Is Correct</label>
-                            <input type="checkbox" asp-for="Test.Questions.ElementAt(i).Answers.ElementAt(j).IsCorrect" />
-                        </div>
-                    }
-                </div>
-            } *@
+            </div>
             <form method="post">
                 <button type="submit" class="btn btn-primary" asp-page-handler="CreatedTest">Создать тест</button>
             </form>
@@ -72,8 +36,8 @@
     else
     {
         <p>@Model.ErrorMessage</p>
-        <form method="post">
-            <button type="submit" class="btn btn-primary" asp-page-handler="CreatedTest">Создать тест</button>
+        <form method="post" class="test-square">
+            <button  type="submit" class="btn btn-primary" asp-page-handler="CreatedTest">Создать тест</button>
         </form>
     }
 }
@@ -81,3 +45,27 @@ else
 {
     <p>У вас нет прав создавать тесты</p>
 }
+
+<style>
+    .test-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; /* Выравнивание по центру */
+        padding: 20px;
+    }
+
+    .test-square {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .test-square button:hover {
+        transform: scale(1.1);
+        background-color: #2980b9;
+    }
+</style>

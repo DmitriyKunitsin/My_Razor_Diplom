@@ -24,6 +24,8 @@ namespace WebAppDiplomTST.Pages.Tests
         [BindProperty]
         public List<Test> Tests { get; set; }
         [BindProperty]
+        public int testId { get; set; }
+        [BindProperty]
         public string ErrorMessage { get; set; }
         [BindProperty]
         public string Check { get; set; }
@@ -58,6 +60,14 @@ namespace WebAppDiplomTST.Pages.Tests
         public IActionResult OnPostCreatedTest()
         {
             return RedirectToPage("/Tests/CreateTest");
+        }
+        public IActionResult OnPostDetails()
+        {
+            // Обработка нажатия на блок div с определенным testId
+            int checkIdTest = testId;
+            Console.WriteLine(checkIdTest);
+            return RedirectToPage("/Index");
+            // return RedirectToPage("/Test/Details", new { testId = testId });
         }
     }
 }
