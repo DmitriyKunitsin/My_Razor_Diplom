@@ -24,6 +24,7 @@ namespace WebAppDiplomTST.Pages.Tests
 
         [BindProperty]
         public Test Test { get; set; }
+        public Question Question { get; set; }
 
         public IActionResult OnGet()
         {
@@ -58,10 +59,17 @@ namespace WebAppDiplomTST.Pages.Tests
                 Name = Test.Name,
                 Title = Test.Title
             };
+            _context.Tests.Add(newTest);
+            await _context.SaveChangesAsync();
 
-            //_context.Tests.Add(newTest);
-            //await _context.SaveChangesAsync();
-
+            int newTestId = newTest.Id;
+            Question newQuest = new Question
+            {
+                TestId = newTestId
+            };
+            _context.Questions.Add(newQuest);
+            await _context.SaveChangesAsync();
+            HttpContext.Session.SetInt32("Counter", 1);
             return RedirectToPage("/Tests/AddQuestion");
         }
     }

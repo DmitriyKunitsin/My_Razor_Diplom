@@ -20,6 +20,7 @@ namespace WebAppDiplomTST.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<UserTest> UserTests { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
+        public DbSet<Question> Questions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -22,7 +22,7 @@ namespace WebAppDiplomTST.Pages.Tests
         }
 
         [BindProperty]
-        public Test Test { get; set; }
+        public List<Test> Tests { get; set; }
         [BindProperty]
         public string ErrorMessage { get; set; }
         [BindProperty]
@@ -35,7 +35,7 @@ namespace WebAppDiplomTST.Pages.Tests
                 return RedirectToPage("/Index");
             }
             ErrorMessage = null;
-            Test = new Test();
+            Tests = _context.Tests.ToList();
             if (_test == null)
             {
                 ErrorMessage = "База данных пуста";

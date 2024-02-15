@@ -7,39 +7,42 @@
 @using WebAppDiplomTST.Data.Identity
 @using WebAppDiplomTST.Data.Tests
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc
 
 @inject SignInManager<ApplicationUser> SignlnManager
 
 @if (SignlnManager.IsSignedIn(User))
 {
-    <h1>Создание вопросов - Вопрос номер <span id="questionIndex">1</span></h1>
-    <form method="post" id="questionForm">
+    <h1>Создание вопросов - Вопрос номер <span>@ViewData["Counter"]</span></h1>
+    <form method="post" >
         <div class="form-container">
-            <label for="questionText">Текст вопроса:</label>
-            <input type="text" id="questionText" name="" required>
+            <label asp-for="Question.Text">Текст вопроса:</label>
+            <input type="text" asp-for="Question.Text" required/>
+            <span asp-validation-for="Question.Text" class="text-danger"></span>
         </div>
         <div id="answersContainer" class="form-container">
             <div class="answer">
-                <label asp-for="Question.Text">новый Ответ 1:</label>
-                <input type="text" asp-for="Question.Text" class="form-control" />
-                <span asp-validation-for="Question.Text" class="text-danger"></span>
-                <label for="answer1">старый Ответ 1:</label>
-                <input type="text" id="answer1" name="Question.Answers[0].Text" required>
-                <input type="checkbox" id="correct1" name="Question.Answers[0].IsCorrect">
+                <label asp-for="answerText[0]">Ответ 1:</label>
+                <input type="text" asp-for="answerText[0]" class="form-control" required/>
+                <span asp-validation-for="answerText[0]" class="text-danger"></span>
+                <input type="checkbox" id="correct1" asp-for="checkCorrectAnswer" />
                 <label for="correct1">Правильный ответ</label>
             </div>
         </div>
 
+        <button class="btn btn-primary" type="submit" onclick="addAnswer()"  asp-page-handler="AddAnswer">Добавить ответ</button>
 
-        <button class="btn btn-primary" type="button" onclick="addAnswer()">Добавить ответ</button>
-        <button class="btn btn-primary" type="submit" onclick="addQuestion(event)" asp-page-handler="AddQuest">Добавить вопрос</button>
+
+        <button class="btn btn-primary" type="submit" asp-page-handler="AddQuest">Добавить вопрос</button>
+
+
     </form>
     <form method="post" id="saveTest">
-        <button class="btn btn-primary" type="submit" onclick="saveTest(event)" asp-page-handler="saveTest">Сохранить тест</button>
+        <button class="btn btn-primary" type="submit" onclick="saveTest()" asp-page-handler="SaveTest">Сохранить тест</button>
     </form>
     <script>
         let answerIndex = 1;
-        
+
         let testIsContinued = "testIsContinued";
         let isNewTest = localStorage.getItem("isNewTest") || testIsNew;
         console.log(localStorage.getItem("isNewTest"));
@@ -73,12 +76,12 @@
 
                 var answerInput = document.createElement("input");
                 answerInput.type = "text";
-                answerInput.name = "Question.Answers[" + answerIndex + "].Text";
+                answerInput.name = "answerText[" + answerIndex + "]";;
                 answerInput.required = true;
 
                 var correctInput = document.createElement("input");
                 correctInput.type = "checkbox";
-                correctInput.name = "Question.Answers[" + answerIndex + "].IsCorrect";
+                correctInput.name = "checkCorrectAnswer";
 
                 var correctLabel = document.createElement("label");
                 correctLabel.textContent = "Правильный ответ";
@@ -92,8 +95,6 @@
                 answersContainer.appendChild(answerDiv);
 
                 answerIndex++;
-
-
             } else {
                 alert("Максимальное колличество ответов - 4");
             }
