@@ -65,9 +65,8 @@ namespace WebAppDiplomTST.Pages.Tests
         {
             // Обработка нажатия на блок div с определенным testId
             int checkIdTest = testId;
-            Console.WriteLine(checkIdTest);
-            return RedirectToPage("/Index");
-            // return RedirectToPage("/Test/Details", new { testId = testId });
+
+            return RedirectToPage("/Tests/PassingTest", new { testId = testId });
         }
     }
 }

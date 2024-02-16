@@ -1,0 +1,70 @@
+﻿@page
+@model WebAppDiplomTST.Pages.Tests.PassingTestModel
+@{
+    var combinedModel = ViewData["CombinedModel"] as CombinedModel;
+}
+
+@if (combinedModel != null)
+{
+    <h1>Test: @combinedModel.Test.Test</h1>
+
+    <h2>Questions:</h2>
+    @foreach (var question in combinedModel.Test.Questions)
+    {
+        <p>@question.Text</p>
+
+        <h3>Answers:</h3>
+        @foreach (var answer in question.Answers)
+        {
+            <p>@answer.Text</p>
+        }
+    }
+}
+@* @if (Model.Test != null)
+{ *@
+
+@* <h1>@Model.Test.TestModels.Name</h1>
+
+    @foreach (var question in Model.Test.Questions)
+    {
+        <h2>@question.Text</h2>
+        <ul>
+            @foreach (var answer in Model.Test.Answers.Where(a => a.QuestionId == question.Id))
+            {
+                <li>@answer.Text</li>
+            }
+        </ul>
+    } *@
+@* @foreach (var question in Model.TestModels)
+{
+    <h3>@question.Questions</h3>
+    <ul>
+        @foreach (var answer in question.Answers)
+        {
+            <li>@answer.Text</li>
+        }
+    </ul>
+} *@
+@if (Model.idDate.Count == 0)
+{
+    <p>Массив данных пуст</p>
+}
+else
+{
+
+    @foreach (var i in Model.idDate)
+    {
+        foreach (var id in i.idTests)
+        {
+            <p>@id</p>
+            Console.WriteLine(id);
+
+        }
+    }
+}
+@* } *@
+@* else
+{
+    <p>Тест не найден или отсутствует</p>
+}
+ *@

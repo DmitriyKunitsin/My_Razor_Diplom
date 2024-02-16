@@ -37,10 +37,10 @@ namespace WebAppDiplomTST.Pages.Tests
         [HttpPost]
         public IActionResult OnPostAddQuest()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
             if (HttpContext.Session.GetInt32("Counter") != null)
             {
                 counter = HttpContext.Session.GetInt32("Counter").Value;
