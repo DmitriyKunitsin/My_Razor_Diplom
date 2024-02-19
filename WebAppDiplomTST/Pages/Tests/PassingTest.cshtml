@@ -6,17 +6,20 @@
 
 @if (combinedModel != null)
 {
-    <h1>Test: @combinedModel.Test.Test</h1>
+    <h1>Тест: @combinedModel.Test.Test</h1>
 
-    <h2>Questions:</h2>
+    <h2>Вопрос:</h2>
     @foreach (var question in combinedModel.Test.Questions)
     {
-        <p>@question.Text</p>
-
-        <h3>Answers:</h3>
+        <h2>@question.Text</h2>
         @foreach (var answer in question.Answers)
         {
-            <p>@answer.Text</p>
+            <div>
+                <label style="font-size: 36px;">
+                    <span>@answer.Text</span>
+                    <input type="checkbox" />
+                </label>
+            </div>
         }
     }
 }

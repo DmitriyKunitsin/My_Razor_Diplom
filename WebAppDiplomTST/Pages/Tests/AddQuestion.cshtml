@@ -14,23 +14,24 @@
 @if (SignlnManager.IsSignedIn(User))
 {
     <h1>Создание вопросов - Вопрос номер <span>@ViewData["Counter"]</span></h1>
-    <form method="post" >
+    <form method="post">
         <div class="form-container">
             <label asp-for="Question.Text">Текст вопроса:</label>
-            <input type="text" asp-for="Question.Text" required/>
+            <input type="text" asp-for="Question.Text" required />
             <span asp-validation-for="Question.Text" class="text-danger"></span>
         </div>
         <div id="answersContainer" class="form-container">
             <div class="answer">
                 <label asp-for="answerText[0]">Ответ 1:</label>
-                <input type="text" asp-for="answerText[0]" class="form-control" required/>
+                <input type="text" asp-for="answerText[0]" class="form-control" required />
                 <span asp-validation-for="answerText[0]" class="text-danger"></span>
-                <input type="checkbox" id="correct1" asp-for="checkCorrectAnswer" />
-                <label for="correct1">Правильный ответ</label>
+                <input type="hidden" name="checkCorrectAnswer[0]" value="false" />
+                <input type="checkbox" asp-for="checkCorrectAnswer[0]" />
+                <label asp-for="checkCorrectAnswer[0]">Правильный ответ</label>
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" onclick="addAnswer()"  asp-page-handler="AddAnswer">Добавить ответ</button>
+        <button class="btn btn-primary" type="button" onclick="addAnswer()">Добавить ответ</button>
 
 
         <button class="btn btn-primary" type="submit" asp-page-handler="AddQuest">Добавить вопрос</button>
@@ -67,7 +68,6 @@
             if (answerIndex < 4) {
 
                 var answersContainer = document.getElementById("answersContainer");
-
                 var answerDiv = document.createElement("div");
                 answerDiv.classList.add("answer");
 
@@ -76,25 +76,41 @@
 
                 var answerInput = document.createElement("input");
                 answerInput.type = "text";
-                answerInput.name = "answerText[" + answerIndex + "]";;
+                answerInput.name = "answerText[" + answerIndex + "]";
                 answerInput.required = true;
 
                 var correctInput = document.createElement("input");
                 correctInput.type = "checkbox";
-                correctInput.name = "checkCorrectAnswer";
+                correctInput.name = "checkCorrectAnswer[" + answerIndex + "]";
+                correctInput.value = "true";
+                correctInput.dataset.val = "true";
+                correctInput.dataset.valRequired = "The Boolean field is required.";
+
+                var correctHiddenInput = document.createElement("input");
+                correctHiddenInput.type = "hidden";
+                correctHiddenInput.name = "checkCorrectAnswer[" + answerIndex + "]";
+                correctHiddenInput.value = "false";
 
                 var correctLabel = document.createElement("label");
                 correctLabel.textContent = "Правильный ответ";
-                correctLabel.setAttribute("for", "correct" + (answerIndex + 1));
+
+                correctInput.addEventListener("change", function () {
+                    if (correctInput.checked) {
+                        correctHiddenInput.value = "true";
+                    } else {
+                        correctHiddenInput.value = "false";
+                    }
+                });
 
                 answerDiv.appendChild(answerLabel);
                 answerDiv.appendChild(answerInput);
+                answerDiv.appendChild(correctHiddenInput);
                 answerDiv.appendChild(correctInput);
                 answerDiv.appendChild(correctLabel);
 
                 answersContainer.appendChild(answerDiv);
-
                 answerIndex++;
+
             } else {
                 alert("Максимальное колличество ответов - 4");
             }

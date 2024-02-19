@@ -18,7 +18,7 @@ namespace WebAppDiplomTST.Pages.Tests
         [BindProperty]
         public Question Question { get; set; }
         [BindProperty]
-        public bool checkCorrectAnswer { get; set; }
+        public List<bool> checkCorrectAnswer { get; set; }
         [BindProperty]
         public List<string> answerText { get; set; }
         public void OnGet()
@@ -37,10 +37,6 @@ namespace WebAppDiplomTST.Pages.Tests
         [HttpPost]
         public IActionResult OnPostAddQuest()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
             if (HttpContext.Session.GetInt32("Counter") != null)
             {
                 counter = HttpContext.Session.GetInt32("Counter").Value;
@@ -51,14 +47,18 @@ namespace WebAppDiplomTST.Pages.Tests
             int lastQuestionId = _context.Questions.Max(x => x.Id);
 
             int count = 0;
+            var correctAnswers = Request.Form["checkCorrectAnswer"];
+            List<bool> answCurrent = checkCorrectAnswer;
             foreach (var answer in answerText)
             {
 
+
                 var quest = new Answer
                 {
-                    Text = answerText[count],
+                    Text = answer,
                     QuestionId = lastQuestionId,
-                    lvlQuestion = counter - 1
+                    lvlQuestion = counter - 1,
+                    IsCorrect = checkCorrectAnswer[count]
                 };
                 count++;
                 _context.Answers.Add(quest);
@@ -88,7 +88,7 @@ namespace WebAppDiplomTST.Pages.Tests
         }
         public IActionResult OnPostSaveTest()
         {
-            return RedirectToPage("/Tests");
+            return RedirectToPage("/Index");
         }
 
     }
