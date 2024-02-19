@@ -3,71 +3,26 @@
 @{
     var combinedModel = ViewData["CombinedModel"] as CombinedModel;
 }
+<form method="post">
 
-@if (combinedModel != null)
-{
-    <h1>Тест: @combinedModel.Test.Test</h1>
-
-    <h2>Вопрос:</h2>
-    @foreach (var question in combinedModel.Test.Questions)
+    @if (combinedModel != null)
     {
-        <h2>@question.Text</h2>
-        @foreach (var answer in question.Answers)
+        <h1>Тест: @combinedModel.Test.Test</h1>
+
+        <h2>Вопрос:</h2>
+        @foreach (var question in combinedModel.Test.Questions)
         {
-            <div>
-                <label style="font-size: 36px;">
-                    <span>@answer.Text</span>
-                    <input type="checkbox" />
-                </label>
-            </div>
-        }
-    }
-}
-@* @if (Model.Test != null)
-{ *@
-
-@* <h1>@Model.Test.TestModels.Name</h1>
-
-    @foreach (var question in Model.Test.Questions)
-    {
-        <h2>@question.Text</h2>
-        <ul>
-            @foreach (var answer in Model.Test.Answers.Where(a => a.QuestionId == question.Id))
+            <h2>@question.Text</h2>
+            @foreach (var answer in question.Answers)
             {
-                <li>@answer.Text</li>
+                <div>
+                    <label style="font-size: 36px;">
+                        <span>@answer.Text</span>
+                        <input type="checkbox" name="selectedAnswers" value="@answer.Id" />
+                    </label>
+                </div>
             }
-        </ul>
-    } *@
-@* @foreach (var question in Model.TestModels)
-{
-    <h3>@question.Questions</h3>
-    <ul>
-        @foreach (var answer in question.Answers)
-        {
-            <li>@answer.Text</li>
         }
-    </ul>
-} *@
-@if (Model.idDate.Count == 0)
-{
-    <p>Массив данных пуст</p>
-}
-else
-{
-
-    @foreach (var i in Model.idDate)
-    {
-        foreach (var id in i.idTests)
-        {
-            <p>@id</p>
-            Console.WriteLine(id);
-
-        }
+        <button class="btn btn-primary" type="submit">Отправить ответы на проверку</button>
     }
-}
-@* } *@
-@* else
-{
-    <p>Тест не найден или отсутствует</p>
-}
- *@
+</form>

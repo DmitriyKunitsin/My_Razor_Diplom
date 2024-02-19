@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,11 @@ namespace WebAppDiplomTST.Pages.Tests
     public class PassingTestModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public PassingTestModel(ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public PassingTestModel(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
             idDate = new List<idTest>();
         }
         public List<idTest> idDate { get; set; }
@@ -63,6 +66,14 @@ namespace WebAppDiplomTST.Pages.Tests
                 ViewData["CombinedModel"] = combinedModel;
             }
             return Page();
+        }
+        public IActionResult OnPost(int testId, List<int> selectedAnswers)
+        {
+            // Здесь вы можете обрабатывать выбранные ответы и выполнять необходимые действия
+            var selectedAnswersString = string.Join(",", selectedAnswers);
+            _httpContextAccessor.HttpContext.Session.SetString("SelectedAnswers", selectedAnswersString);
+
+            return RedirectToPage("/Tests/Results", new { testId });
         }
     }
     public class idTest

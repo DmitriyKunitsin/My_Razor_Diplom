@@ -48,7 +48,6 @@ namespace WebAppDiplomTST.Pages.Tests
 
             int count = 0;
             var correctAnswers = Request.Form["checkCorrectAnswer"];
-            List<bool> answCurrent = checkCorrectAnswer;
             foreach (var answer in answerText)
             {
 
@@ -74,8 +73,7 @@ namespace WebAppDiplomTST.Pages.Tests
             int newIdQuestion = lastQuestionId + 1;
             var newQest = new Question
             {
-                TestId = entityQuest.TestId,
-                Text = "Новый вопрос"
+                TestId = entityQuest.TestId
             };
             _context.Questions.Add(newQest);
             _context.SaveChanges();
